@@ -5,7 +5,8 @@ on:
     branches:
       - main
 
-jobs:name: Deployment pipeline
+jobs:
+  name: Deployment pipeline
 
 on:
   push:

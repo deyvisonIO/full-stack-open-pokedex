@@ -37,8 +37,6 @@ jobs:
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
-<<<<<<< HEAD
-=======
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
@@ -49,8 +47,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-<<<<<<< HEAD
-=======
           DEFAULT_BRANCH: main
->>>>>>> 0969a6e (Exercise 11.16)
->>>>>>> 585c1cb (Exercise 11.16)

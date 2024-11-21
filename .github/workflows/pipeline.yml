@@ -56,16 +56,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Discord notify success
         if: ${{ success() && github.event_name == 'push' }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          severity: info
-          details: deployment successed
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with: 
+          args: |
+            "✅ Deployment was sucessful"
 
       - name: Discord notify error
         if: ${{ failure() && github.event_name == 'push' }} 
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          severity: error 
-          details: deployment failed 
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with: 
+          args: |
+            "❌ Deployment failed"

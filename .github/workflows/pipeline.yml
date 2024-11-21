@@ -67,3 +67,5 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: error 
+          details: deployment failed 
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

@@ -53,9 +53,13 @@ jobs:
     needs: [simple_deployment_pipeline, tag_release]
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Discord notify success
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: ${{ success() }}
+        if: ${{ success() && github.event_name == 'push' }}
         with:
           severity: info
           details: deployment successed
@@ -63,7 +67,7 @@ jobs:
 
       - name: Discord notify error
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: ${{ failure() }}
+        if: ${{ failure() && github.event_name == 'push' }} 
         with:
           severity: error 
           details: deployment failed 

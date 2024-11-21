@@ -49,3 +49,22 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           DEFAULT_BRANCH: main
+  notify_discord:
+    needs: [simple_deployment_pipeline, tag_release]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Discord notify success
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ success() }}
+        with:
+          severity: info
+          details: deployment successed
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Discord notify error
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ failure() }}
+        with:
+          severity: error 
+          details: deployment failed 
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

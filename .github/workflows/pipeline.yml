@@ -54,9 +54,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
-      - uses: rjstone/discord-webhook-notify@v1.0.4
       - name: Discord notify success
         if: ${{ success() && github.event_name == 'push' }}
+        uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: info
           details: deployment successed
@@ -64,7 +64,6 @@ jobs:
 
       - name: Discord notify error
         if: ${{ failure() && github.event_name == 'push' }} 
+        uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: error 
-          details: deployment failed 
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
